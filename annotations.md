@@ -2,7 +2,9 @@
 
 ## Chat GPT su come usare Google AudioSet
 
-> Google AudioSet is a large-scale dataset for audio event recognition. It contains labeled audio clips and is commonly used for tasks like audio classification and detection. To use Google AudioSet, you can follow these general steps:
+---
+
+ Google AudioSet is a large-scale dataset for audio event recognition. It contains labeled audio clips and is commonly used for tasks like audio classification and detection. To use Google AudioSet, you can follow these general steps:
 
 1. **Accessing the Data**:
    Google AudioSet is freely available for research purposes. You can access the dataset by visiting the [official AudioSet website](https://research.google.com/audioset/).
@@ -32,3 +34,4 @@ Here are some resources that can be helpful:
 - [TensorFlow Audio Recognition Tutorial](https://www.tensorflow.org/tutorials/audio/simple_audio): A guide from TensorFlow on building an audio recognition model using AudioSet data.
 
 Remember that using large datasets like Google AudioSet may require significant computational resources and expertise in machine learning and audio signal processing. Be sure to adhere to the dataset's terms of use and licensing when using it for research or application development.
+---
