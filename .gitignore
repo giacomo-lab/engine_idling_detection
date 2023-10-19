@@ -1,2 +1,3 @@
-thunder_eval.tfrecord
-thunder_bal_training.tfrecord
+#ingore all the .tfrecord files
+*.tfrecord
+*.wav
