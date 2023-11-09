@@ -1,3 +1,5 @@
 #ingore all the .tfrecord files
 *.tfrecord
 *.wav
+# Ignore the data directory
+my_dir/
