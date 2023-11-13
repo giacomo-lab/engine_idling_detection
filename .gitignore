@@ -5,3 +5,4 @@
 my_dir/
 *.pickle
 *.txt
+*.json
