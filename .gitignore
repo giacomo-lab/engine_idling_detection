@@ -1,5 +1,8 @@
 #ingore all the .tfrecord files
 *.tfrecord
 *.wav
+*.json
+*.pickle
+learning_*.txt
 # Ignore the data directory
 my_dir/

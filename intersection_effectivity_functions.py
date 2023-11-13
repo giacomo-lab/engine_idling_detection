@@ -29,7 +29,7 @@ def process_file(file, output_dir):
     audio, sr = librosa.load(file, sr=None)
 
     # Apply time shift
-    audio_shifted = time_shift(audio, sr, 2, 'right')
+    audio_shifted = time_shift(audio, sr, 1, 'right')
 
     # Apply noise
     audio_noisy = add_noise(audio)
