@@ -6,3 +6,4 @@
 learning_*.txt
 # Ignore the data directory
 my_dir/
+tuner_results/
