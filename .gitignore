@@ -2,6 +2,7 @@
 *.tfrecord
 *.wav
 # Ignore the data directory
+tuner_results/
 my_dir/
 *.pickle
 *.txt
