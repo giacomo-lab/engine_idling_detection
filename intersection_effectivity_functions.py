@@ -12,8 +12,11 @@ import soundfile as sf
 # from pydub import AudioSegment
 
 # data augmentation (numpy and librosa)
+def timeshift(file, output_dir, shift_max=1, shift_direction='right'):
+    # Load audio
+    audio, sr = librosa.load(file, sr=None)
 
-def time_shift(audio, sr, shift_max, shift_direction):
+    # Add a time shift to the audio file
     shift = np.random.randint(sr * shift_max)
     if shift_direction == 'right':
         shift = -shift
@@ -23,31 +26,13 @@ def time_shift(audio, sr, shift_max, shift_direction):
         augmented_audio[:shift] = 0
     else:
         augmented_audio[shift:] = 0
-    return augmented_audio
-
-def add_noise(audio):
-    noise = np.random.randn(len(audio))
-    augmented_audio = audio + 0.005 * noise
-    return augmented_audio
-
-def process_file(file, output_dir):
-    # Load audio
-    audio, sr = librosa.load(file, sr=None)
-
-    # Apply time shift
-    audio_shifted = time_shift(audio, sr, 1, 'right')
-
-    # Apply noise
-    audio_noisy = add_noise(audio)
-
-    # Save augmented audio to file, or use it for further processing
     # Define output file path and add "aug" tag to the file name
     filename, file_extension = os.path.splitext(os.path.basename(file))
     output_file_path = os.path.join(output_dir, f"{filename}_aug{file_extension}")
 
     # Save augmented audio to file
-    sf.write(output_file_path, audio_shifted, sr)
-    print("saved new file as ", output_file_path)
+    sf.write(output_file_path, augmented_audio, sr)
+    #print("saved new file as ", output_file_path)
     
 def create_mel_specs (path_to_wav, path_to_png):
 
