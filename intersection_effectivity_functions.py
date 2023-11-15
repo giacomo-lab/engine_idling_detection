@@ -4,19 +4,79 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
-
 import librosa.display
 import librosa
 import soundfile as sf
 
 # from pydub import AudioSegment
+def get_encoding(filename):
+    """Looks up the file path and prints the encoding type. Doesnt change anything within the file.
 
-# data augmentation (numpy and librosa)
-def timeshift(file, output_dir, shift_max=1, shift_direction='right'):
-    # Load audio
-    audio, sr = librosa.load(file, sr=None)
+    Args:
+        filename (_string_): _description_ filename  
 
-    # Add a time shift to the audio file
+    Returns:
+        _type_: _description_ 
+    """
+    
+    # Look up the file path
+    file_path = file_path_dict.get(filename)
+    if file_path is None:
+        print(f"File {filename} not found")
+        return None
+
+    # Get the encoding details
+    try:
+        with sf.SoundFile(file_path) as f:
+            return f"{f.subtype}"
+    except Exception as e:
+        print(f"Error with file {filename}: {e}")
+        return None
+
+
+def standardize_audio(audio, target_length, samp_rate, channels):
+    """makes all audio files the same length by adding silence at the end of shorter files.
+    It also standardizes the sampling rate and the number of channels. Overwrites original files
+
+    Args:
+        audio (_path_): path to single audio files
+        target_length (_float_): length of longest audio file
+        samp_rate (_int_): sampling rate
+        channels (_boolean_): mono True or False
+    """
+    # apply sampling rate of 44100 and mono to all files
+    librosa.load(audio, sr=samp_rate, mono = channels) 
+    
+    # Add silence to shorter files
+    current_audio = AudioSegment.from_wav(audio)
+    current_length = len(current_audio)
+    
+    if current_length < target_length: 
+        # get difference in duration and calculate the sound of silence
+        silence_duration = target_length - current_length
+        # create a sound of silence with the needed length   
+        silence = AudioSegment.silent(duration=silence_duration)
+        #add the sound of silence at the end of the file
+        padded_audio = current_audio + silence
+        
+    else:
+        padded_audio = current_audio
+    
+    padded_audio.export(audio, format='wav')
+
+def time_shift(audio, sr, shift_max=1, shift_direction='right'):
+    """Adds a time shift to the audio files.
+
+    Args:
+        audio (_type_): _description_
+        sr (_type_): _description_
+        shift_max (_type_): _description_
+        shift_direction (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
+    # Generate a random shift value within the range
     shift = np.random.randint(sr * shift_max)
     if shift_direction == 'right':
         shift = -shift
@@ -33,11 +93,17 @@ def timeshift(file, output_dir, shift_max=1, shift_direction='right'):
     # Save augmented audio to file
     sf.write(output_file_path, augmented_audio, sr)
     #print("saved new file as ", output_file_path)
-    
-def create_mel_specs (path_to_wav, path_to_png):
 
-    #create a list of all wav files needed to be converted: 
+
+def create_mel_specs (path_to_wav, path_to_png):
+    """Creates mel spec png without axes or legend for each given audio file
+
+    Args:
+        path_to_wav (_path_): path to the folder ontaining all wav files
+        path_to_png (_path_): destination folder of all png files
+    """
     
+    #create a list of paths of all wav files
     file_list = [file for file in os.listdir(path_to_wav)]
     
     for file in file_list:    
@@ -62,5 +128,8 @@ def create_mel_specs (path_to_wav, path_to_png):
         plt.axis('off')
         plt.savefig(output_file, bbox_inches='tight', pad_inches=0, transparent=True)
         plt.close()
+
+
+    
 
                 
