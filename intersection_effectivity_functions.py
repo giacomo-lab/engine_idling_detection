@@ -7,9 +7,10 @@ import matplotlib.pyplot as plt
 import librosa.display
 import librosa
 import soundfile as sf
+from pydub import AudioSegment
 
 # from pydub import AudioSegment
-def get_encoding(filename):
+def get_encoding(filename, file_path_dict):
     """Looks up the file path and prints the encoding type. Doesnt change anything within the file.
 
     Args:
@@ -64,35 +65,28 @@ def standardize_audio(audio, target_length, samp_rate, channels):
     
     padded_audio.export(audio, format='wav')
 
-def time_shift(audio, sr, shift_max=1, shift_direction='right'):
-    """Adds a time shift to the audio files.
+def time_shift(file_path, output_dir, sr=44100, shift_max=1, shift_direction='right'):
+    # Load the audio file
+    audio, sr = librosa.load(file_path, sr=None)
 
-    Args:
-        audio (_type_): _description_
-        sr (_type_): _description_
-        shift_max (_type_): _description_
-        shift_direction (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
     # Generate a random shift value within the range
     shift = np.random.randint(sr * shift_max)
     if shift_direction == 'right':
         shift = -shift
+
     augmented_audio = np.roll(audio, shift)
     # Set to silence for heading/ tailing
     if shift > 0:
         augmented_audio[:shift] = 0
     else:
         augmented_audio[shift:] = 0
+
     # Define output file path and add "aug" tag to the file name
-    filename, file_extension = os.path.splitext(os.path.basename(file))
+    filename, file_extension = os.path.splitext(os.path.basename(file_path))
     output_file_path = os.path.join(output_dir, f"{filename}_aug{file_extension}")
 
     # Save augmented audio to file
     sf.write(output_file_path, augmented_audio, sr)
-    #print("saved new file as ", output_file_path)
 
 
 def create_mel_specs (path_to_wav, path_to_png):
