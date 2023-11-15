@@ -1,10 +1,15 @@
 # data augmentation
 
 import os
-import librosa
 import numpy as np
-from matplotlib import pyplot as plt
+import matplotlib.pyplot as plt
+
+
+import librosa.display
+import librosa
 import soundfile as sf
+
+# from pydub import AudioSegment
 
 # data augmentation (numpy and librosa)
 
@@ -43,8 +48,8 @@ def process_file(file, output_dir):
     # Save augmented audio to file
     sf.write(output_file_path, audio_shifted, sr)
     print("saved new file as ", output_file_path)
-
-def create_mel_specs(path_to_wav, path_to_png):
+    
+def create_mel_specs (path_to_wav, path_to_png):
 
     #create a list of all wav files needed to be converted: 
     
@@ -72,3 +77,5 @@ def create_mel_specs(path_to_wav, path_to_png):
         plt.axis('off')
         plt.savefig(output_file, bbox_inches='tight', pad_inches=0, transparent=True)
         plt.close()
+
+                
