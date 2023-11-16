@@ -1,15 +1,16 @@
 # data augmentation
 
 import os
-import numpy as np
-import matplotlib.pyplot as plt
-
-
 import librosa.display
 import librosa
 import soundfile as sf
+from pydub import AudioSegment
 
-# from pydub import AudioSegment
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+
 def get_encoding(filename):
     """Looks up the file path and prints the encoding type. Doesnt change anything within the file.
 
