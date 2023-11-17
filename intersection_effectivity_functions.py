@@ -11,15 +11,18 @@ from pydub import AudioSegment
 
 # from pydub import AudioSegment
 def get_encoding(filename, file_path_dict):
-    """Looks up the file path and prints the encoding type. Doesnt change anything within the file.
+    """ Looks up the file path and prints the encoding type. Doesnt change anything within the file.
+        
 
     Args:
-        filename (_string_): _description_ filename  
+        filename (_string_): name of the file name
+        file_path_dict (_dict_): dictionary containing file paths
 
     Returns:
-        _type_: _description_ 
+        _string_: encoding type of each file
     """
     
+        
     # Look up the file path
     file_path = file_path_dict.get(filename)
     if file_path is None:
@@ -66,6 +69,15 @@ def standardize_audio(audio, target_length, samp_rate, channels):
     padded_audio.export(audio, format='wav')
 
 def time_shift(file_path, output_dir, sr=44100, shift_max=1, shift_direction='right'):
+    """Applies a time shift to all audio files. Adds _aug to the end of the output filename.
+    
+    Args:
+        file_path (path): path to the audio files.
+        output_dir (_type_): path to output. Same as input is advised.
+        sr (int, optional):  Defaults to 44100.
+        shift_max (int, optional): Defaults to 1.
+        shift_direction (str, optional):  Defaults to 'right'.
+    """
     # Load the audio file
     audio, sr = librosa.load(file_path, sr=None)
 
