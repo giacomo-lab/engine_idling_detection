@@ -5,7 +5,7 @@ We have developed an AI-based alert system to reduce emissions in car carriers. 
 To use this project you will need to clone the repository, and install the libraries contained in _requirements.txt_, download and unzip the [UrbanSound8k dataset](https://www.kaggle.com/datasets/chrisfilo/urbansound8k) from Kaggle. 
 
 The main part of the code is in the Jupyter Notebook *idling_detection.ipynb*. To keep the notebook as compact as possible the functions used in the notebook are in the file *idling_detection_functions.py*.
-The *tuner_results* folder contains our results for the hyperparameters tuning and *history.pickle* the info about the training of the tuned model. This information can be obtained by rerunning the tuning and the training or by loading our result (just to save time). 
+The *history.pickle* file contains the info about the training of the tuned model. This information can be obtained by rerunning the training or by loading our result (just to save time).
 
 ### Credits
 This project was a collaborative effort between Matthias Bressan and Giacomo Labbri

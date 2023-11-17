@@ -1,5 +1,8 @@
+# Ignore Python compiled files
+__pycache__/
 #ingore all the .tfrecord files
 *.wav
+*.DS_store
 # Ignore the data directory
 tuner_results/
 
